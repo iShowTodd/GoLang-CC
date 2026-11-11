@@ -149,4 +149,17 @@ func main() {
 	// x := 5
 	// y := 10
 	// const z = x + y // this won't compile!
+
+	// Untyped Const → acts exactly like a literal
+	// literal = directly written value
+	// untyped literal = a value that can be of more than 1 type
+	const unTypedConstant = 10
+
+	var typed1 int = unTypedConstant
+	var typed2 float64 = unTypedConstant
+	var typed3 byte = unTypedConstant
+
+	fmt.Println(typed1)
+	fmt.Println(typed2)
+	fmt.Println(typed3)
 }

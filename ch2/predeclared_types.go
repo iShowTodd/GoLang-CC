@@ -79,4 +79,59 @@ func main() {
 	var sum1 float64 = float64(digit1) + digit2
 	var sum2 int = digit1 + int(digit2)
 	fmt.Println(sum1, sum2)
+
+	var digit3 int = 10
+	var digit4 byte = 100
+	var sum3 int = digit3 + int(digit4)
+	var sum4 byte = byte(digit3) + digit4
+	fmt.Println(sum3, sum4)
+
+	// literals are untyped
+
+	var ans float64 = 5 * 20.5
+	fmt.Println(ans)
+
+	// var vs :=
+
+	var baseSalary int = 4000
+	bonus := 500
+	var overtime int
+
+	var hoursWorked, daysOff int = 160, 2
+	var rating, level int
+	name, years := "Ahmed", 3
+
+	var (
+		department          string
+		raise                       = 200
+		taxRate             float32 = 0.15
+		firstName, lastName         = "Ahmed", "Arafa"
+		isActive, isManager bool
+	)
+
+	fmt.Println("Total pay:", baseSalary+bonus+overtime+raise)
+	fmt.Println("Hours:", hoursWorked, "Days off:", daysOff)
+	fmt.Println("Rating:", rating, "Level:", level)
+	fmt.Println(name, years)
+	fmt.Println(firstName, lastName)
+	fmt.Printf("%q %.2f\n", department, taxRate)
+	fmt.Println(isActive, isManager)
+
+	name2 := "Ahmed"
+	baseSalary2 := 4000
+	bonus2 := 500.5
+	isActive2 := true
+
+	hoursWorked2, daysOff2 := 160, 2
+	role2, level2 := "Backend", 3
+
+	fmt.Println(name2, baseSalary2, bonus2, isActive2)
+	fmt.Println(hoursWorked2, daysOff2, role2, level2)
+	fmt.Printf("%T %T %T %T\n", name2, baseSalary2, bonus2, isActive2)
+
+	baseSalary2 = baseSalary2 + 300
+	fmt.Println(baseSalary2)
+
+	daysOff2, vacation2 := 5, 10
+	fmt.Println(daysOff2, vacation2)
 }

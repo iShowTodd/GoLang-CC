@@ -134,4 +134,19 @@ func main() {
 
 	daysOff2, vacation2 := 5, 10
 	fmt.Println(daysOff2, vacation2)
+
+	const immutableNum int64 = 10
+	println(immutableNum)
+
+	const (
+	// I can declare here exactly like var
+	)
+
+	// immutableNum = 200 // will not compile
+
+	// Go doesn’t provide a way to specify that a value calculated at runtime is immutable.
+
+	// x := 5
+	// y := 10
+	// const z = x + y // this won't compile!
 }

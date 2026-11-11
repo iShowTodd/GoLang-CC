@@ -66,4 +66,17 @@ func main() {
 	fmt.Println(real(x))
 	fmt.Println(imag(x))
 	fmt.Println(cmplx.Abs(x))
+
+	// a glimpse of Strings  and Runes
+	var myFirstInitial rune = 'A'   // rune is an alias for int32
+	var mySecondInitial int32 = 'B' // bad practice use Rune instead
+
+	// Explicit Type Conversion
+
+	fmt.Println(myFirstInitial + mySecondInitial)
+	var digit1 int = 10
+	var digit2 float64 = 30.2
+	var sum1 float64 = float64(digit1) + digit2
+	var sum2 int = digit1 + int(digit2)
+	fmt.Println(sum1, sum2)
 }

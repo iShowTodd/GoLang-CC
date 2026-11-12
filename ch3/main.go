@@ -3,6 +3,7 @@ package main
 import "fmt"
 
 func main() {
+	// Arrays
 	var arr [3]int // normal declaration with 3 default zero values
 	fmt.Println(arr)
 
@@ -23,4 +24,14 @@ func main() {
 
 	isEqual := arr2 == arr3
 	fmt.Println(isEqual)
+
+	// Slices (similar to arrays but flexible)
+	var x []int
+	fmt.Println(x == nil) // the only allowed comparison for slices
+
+	x1 := []int{1, 5: 4, 6, 10: 100, 15}
+	fmt.Println(x1) // similar to arrays
+
+	var x2 [][]int  // simulation for 2-D slices
+	fmt.Println(x2) // will produce nil (there are only few types that produce nil other than 0)
 }

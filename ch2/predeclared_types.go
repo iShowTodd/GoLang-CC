@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"math/cmplx"
 )
 
@@ -162,4 +163,49 @@ func main() {
 	fmt.Println(typed1)
 	fmt.Println(typed2)
 	fmt.Println(typed3)
+
+	// Exercises of Ch.2
+
+	/*
+		1. Write a program that declares an integer variable called i with the value 20.
+		Assign i to a floating-point variable named f. Print out i and f.
+
+
+		2. Write a program that declares a constant called value that can be assigned to
+		both an integer and a floating-point variable. Assign it to an integer called i and a
+		floating-point variable called f. Print out i and f.
+
+		3. Write a program with three variables, one named b of type byte, one named
+		smallI of type int32, and one named bigI of type uint64. Assign each variable
+		the maximum legal value for its type; then add 1 to each variable. Print out their
+		values.
+	*/
+
+	// Task 1
+	var i int32 = 10
+	var f float64 = float64(i)
+	fmt.Println(i)
+	fmt.Println(f)
+
+	// Task 2
+
+	const value = 50
+	var integerNum int32 = value
+	var floatingPointNum float32 = value
+	fmt.Println(integerNum)
+	fmt.Println(floatingPointNum)
+
+	// Task 3
+
+	var b byte = math.MaxUint8
+	var smallI int32 = math.MaxInt32
+	var bigI uint64 = math.MaxUint64
+
+	b++
+	smallI++
+	bigI++
+	// it is predicted to be the minimum value (Go behavior with interval range)
+	fmt.Println(b)
+	fmt.Println(smallI)
+	fmt.Println(bigI)
 }

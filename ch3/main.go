@@ -87,4 +87,98 @@ func main() {
 	// the length is unchangeable using clear function
 	clear(x7)
 	fmt.Println(x7, len(x7))
+
+	// Declaring your slice
+
+	/*
+		Declaring a slice that might stay nil :
+			var data []int
+	*/
+
+	/*
+		You can create a slice using an empty slice literal:
+		var x = []int{}
+		This creates a slice with zero length and zero capacity. It is confusingly
+		different from a nil slice. Because of implementation reasons,
+		comparing a zero-length slice to nil returns false, while compar‐
+		ing a nil slice to nil returns true. For simplicity, favor nil slices.
+		A zero-length slice is useful only when converting a slice to JSON.
+	*/
+
+	x8 := []int{} // zero length and zero capacity
+	fmt.Println(x8)
+
+	/*
+		Note : zero length != nil
+			   nil slice == nil
+	*/
+
+	fmt.Println(x8 == nil) // false
+
+	/*
+		• If you are using a slice as a buffer,then specify a nonzero length.
+
+		• If you are sure you know the exact size you want, you can specify the length and
+		index into the slice to set the values. This is often done when transforming values
+		in one slice and storing them in a second. The downside to this approach is that
+		if you have the size wrong, you’ll end up with either zero values at the end of the
+		slice or a panic from trying to access elements that don’t exist.
+
+		• In other situations, use make with a zero length and a specified capacity. This
+		allows you to use append to add items to the slice. If the number of items turns
+		out to be smaller, you won’t have an extraneous zero value at the end. If the
+		number of items is larger, your code will not panic.
+
+	*/
+
+	// Slicing to subslices
+	list := []string{"a", "b", "c", "d"}
+
+	slice1 := list[:2]
+	slice2 := list[1:]
+	slice3 := list[1:3]
+	fmt.Println(slice1)
+	fmt.Println(slice2)
+	fmt.Println(slice3)
+
+	// Never use Append with a subslice
+
+	/*
+		the subslice’s capacity
+		is set to the capacity of the original slice, minus the starting offset of the subslice
+		within the original slice. This means elements of the original slice beyond the end of
+		the subslice, including unused capacity, are shared by both slices.
+	*/
+
+	slice4 := []string{"a", "b", "c", "d"}
+	slice5 := slice4[:2]
+	fmt.Println(cap(slice4), cap(slice5))
+	slice5 = append(slice5, "z")
+	fmt.Println("slice4:", slice4)
+	fmt.Println("slice5:", slice5)
+
+	/*
+		Even more confusing slices
+			x := make([]string, 0, 5)
+			x = append(x, "a", "b", "c", "d")
+			y := x[:2]
+			z := x[2:]
+			fmt.Println(cap(x), cap(y), cap(z))
+			y = append(y, "i", "j", "k")
+			x = append(x, "x")
+			z = append(z, "y")
+			fmt.Println("x:", x)
+			fmt.Println("y:", y)
+			fmt.Println("z:", z)
+	*/
+
+	// The full slice expression protects against append
+	slice6 := make([]string, 0, 5)
+	slice6 = append(slice6, "a", "b", "c", "d")
+	slice7 := slice6[:2:2]  // here you limited the capacity to be the length
+	slice8 := slice6[2:4:4] //  here you limited the capacity to be the length
+	// cap (high - low)
+	fmt.Println(slice6)
+	fmt.Println(slice7)
+	fmt.Println(slice8)
 }

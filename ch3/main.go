@@ -87,4 +87,176 @@ func main() {
 	// the length is unchangeable using clear function
 	clear(x7)
 	fmt.Println(x7, len(x7))
+
+	// Declaring your slice
+
+	/*
+		Declaring a slice that might stay nil :
+			var data []int
+	*/
+
+	/*
+		You can create a slice using an empty slice literal:
+		var x = []int{}
+		This creates a slice with zero length and zero capacity. It is confusingly
+		different from a nil slice. Because of implementation reasons,
+		comparing a zero-length slice to nil returns false, while compar‐
+		ing a nil slice to nil returns true. For simplicity, favor nil slices.
+		A zero-length slice is useful only when converting a slice to JSON.
+	*/
+
+	x8 := []int{} // zero length and zero capacity
+	fmt.Println(x8)
+
+	/*
+		Note : zero length != nil
+			   nil slice == nil
+	*/
+
+	fmt.Println(x8 == nil) // false
+
+	/*
+		• If you are using a slice as a buffer,then specify a nonzero length.
+
+		• If you are sure you know the exact size you want, you can specify the length and
+		index into the slice to set the values. This is often done when transforming values
+		in one slice and storing them in a second. The downside to this approach is that
+		if you have the size wrong, you’ll end up with either zero values at the end of the
+		slice or a panic from trying to access elements that don’t exist.
+
+		• In other situations, use make with a zero length and a specified capacity. This
+		allows you to use append to add items to the slice. If the number of items turns
+		out to be smaller, you won’t have an extraneous zero value at the end. If the
+		number of items is larger, your code will not panic.
+
+	*/
+
+	// Slicing to subslices
+	list := []string{"a", "b", "c", "d"}
+
+	slice1 := list[:2]
+	slice2 := list[1:]
+	slice3 := list[1:3]
+	fmt.Println(slice1)
+	fmt.Println(slice2)
+	fmt.Println(slice3)
+
+	// Never use Append with a subslice
+
+	/*
+		the subslice’s capacity
+		is set to the capacity of the original slice, minus the starting offset of the subslice
+		within the original slice. This means elements of the original slice beyond the end of
+		the subslice, including unused capacity, are shared by both slices.
+	*/
+
+	slice4 := []string{"a", "b", "c", "d"}
+	slice5 := slice4[:2]
+	fmt.Println(cap(slice4), cap(slice5))
+	slice5 = append(slice5, "z")
+	fmt.Println("slice4:", slice4)
+	fmt.Println("slice5:", slice5)
+
+	/*
+		Even more confusing slices
+			x := make([]string, 0, 5)
+			x = append(x, "a", "b", "c", "d")
+			y := x[:2]
+			z := x[2:]
+			fmt.Println(cap(x), cap(y), cap(z))
+			y = append(y, "i", "j", "k")
+			x = append(x, "x")
+			z = append(z, "y")
+			fmt.Println("x:", x)
+			fmt.Println("y:", y)
+			fmt.Println("z:", z)
+	*/
+
+	// The full slice expression protects against append
+	slice6 := make([]string, 0, 5)
+	slice6 = append(slice6, "a", "b", "c", "d")
+	slice7 := slice6[:2:2]  // here you limited the capacity to be the length
+	slice8 := slice6[2:4:4] //  here you limited the capacity to be the length
+	// cap (high - low)
+	fmt.Println(slice6)
+	fmt.Println(slice7)
+	fmt.Println(slice8)
+
+	// Copy (independent copies)
+
+	slice9 := []int{1, 2, 3, 4}
+	slice10 := make([]int, 4)
+	num := copy(slice10, slice9)
+	fmt.Println(slice10, num)
+	//  copy till you reach the length
+	slice11 := []int{1, 2, 3, 4}
+	slice12 := make([]int, 2)
+	newSize := copy(slice12, slice11)
+	fmt.Println(slice12, newSize)
+
+	// copy from the middle of the source slice:
+	slice13 := []int{1, 2, 3, 4}
+	slice14 := make([]int, 2)
+	copy(slice14, slice13[2:])
+
+	// The copy function allows you to copy between two slices that cover overlapping
+	// sections of an underlying slice
+	slice15 := []int{1, 2, 3, 4}
+	sameSize := copy(slice15[:3], slice15[1:])
+	fmt.Println(slice15, sameSize)
+
+	//	You can use copy with arrays by taking a slice of the array. You can make the array
+	// either the source or the destination of the copy
+
+	slice16 := []int{1, 2, 3, 4}
+	arr5 := [4]int{5, 6, 7, 8}
+	slice17 := make([]int, 2)
+	copy(slice17, arr5[:])
+	fmt.Println(slice17)
+	copy(arr5[:], slice16)
+	fmt.Println(arr5)
+
+	// Converting from Array to Slice (Note : they shares the same memory)
+	xArray := [4]int{5, 6, 7, 8}
+	xSlice := xArray[:] // The conversion is Done by the : operator
+	fmt.Println(xSlice)
+	// you can convert a sub array to a subslice
+	xSubSlice := xArray[:2]
+	xSubSlice2 := xArray[2:]
+	fmt.Println(xSubSlice, xSubSlice2)
+
+	// Converting from Slices to Arrays (Note : it creates a new memory)
+	// You must specify the size at compile time. otherwise,"Compile-Time error"
+	xSlice2 := []int{1, 2, 3, 4}
+	xArray2 := [4]int(xSlice2)
+	// you can also create a SubArray
+	xSubArray := [2]int(xSlice2[:2])
+	fmt.Println(xArray2)
+	fmt.Println(xSubArray)
+
+	// string , byte and rune
+
+	var s string = "Hello there"
+	var b byte = s[6] // as you can extract a single value from an array or a slice, you can extract a single
+	// value from a string by using an index expression
+	fmt.Println(b)
+
+	// Slicing does not change the original string as it is immutable
+	var s2 string = s[4:7]
+	var s3 string = s[:5]
+	var s4 string = s[6:]
+	fmt.Println(s2, s3, s4)
+
+	var a rune = 'x'
+	var s5 string = string(a)
+	var b2 byte = 'y'
+	var s6 string = string(b)
+	fmt.Println(a, s5, b2, s6)
+
+	// convert string to slices
+	var s7 string = "Hello, "
+	var bs []byte = []byte(s7)
+	var rs []rune = []rune(s7)
+	fmt.Println(bs)
+	fmt.Println(rs)
 }

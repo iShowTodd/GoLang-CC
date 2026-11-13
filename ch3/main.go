@@ -233,4 +233,30 @@ func main() {
 	xSubArray := [2]int(xSlice2[:2])
 	fmt.Println(xArray2)
 	fmt.Println(xSubArray)
+
+	// string , byte and rune
+
+	var s string = "Hello there"
+	var b byte = s[6] // as you can extract a single value from an array or a slice, you can extract a single
+	// value from a string by using an index expression
+	fmt.Println(b)
+
+	// Slicing does not change the original string as it is immutable
+	var s2 string = s[4:7]
+	var s3 string = s[:5]
+	var s4 string = s[6:]
+	fmt.Println(s2, s3, s4)
+
+	var a rune = 'x'
+	var s5 string = string(a)
+	var b2 byte = 'y'
+	var s6 string = string(b)
+	fmt.Println(a, s5, b2, s6)
+
+	// convert string to slices
+	var s7 string = "Hello, "
+	var bs []byte = []byte(s7)
+	var rs []rune = []rune(s7)
+	fmt.Println(bs)
+	fmt.Println(rs)
 }

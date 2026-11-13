@@ -215,4 +215,22 @@ func main() {
 	fmt.Println(slice17)
 	copy(arr5[:], slice16)
 	fmt.Println(arr5)
+
+	// Converting from Array to Slice (Note : they shares the same memory)
+	xArray := [4]int{5, 6, 7, 8}
+	xSlice := xArray[:] // The conversion is Done by the : operator
+	fmt.Println(xSlice)
+	// you can convert a sub array to a subslice
+	xSubSlice := xArray[:2]
+	xSubSlice2 := xArray[2:]
+	fmt.Println(xSubSlice, xSubSlice2)
+
+	// Converting from Slices to Arrays (Note : it creates a new memory)
+	// You must specify the size at compile time. otherwise,"Compile-Time error"
+	xSlice2 := []int{1, 2, 3, 4}
+	xArray2 := [4]int(xSlice2)
+	// you can also create a SubArray
+	xSubArray := [2]int(xSlice2[:2])
+	fmt.Println(xArray2)
+	fmt.Println(xSubArray)
 }

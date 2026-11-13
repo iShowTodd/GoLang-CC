@@ -181,4 +181,38 @@ func main() {
 	fmt.Println(slice6)
 	fmt.Println(slice7)
 	fmt.Println(slice8)
+
+	// Copy (independent copies)
+
+	slice9 := []int{1, 2, 3, 4}
+	slice10 := make([]int, 4)
+	num := copy(slice10, slice9)
+	fmt.Println(slice10, num)
+	//  copy till you reach the length
+	slice11 := []int{1, 2, 3, 4}
+	slice12 := make([]int, 2)
+	newSize := copy(slice12, slice11)
+	fmt.Println(slice12, newSize)
+
+	// copy from the middle of the source slice:
+	slice13 := []int{1, 2, 3, 4}
+	slice14 := make([]int, 2)
+	copy(slice14, slice13[2:])
+
+	// The copy function allows you to copy between two slices that cover overlapping
+	// sections of an underlying slice
+	slice15 := []int{1, 2, 3, 4}
+	sameSize := copy(slice15[:3], slice15[1:])
+	fmt.Println(slice15, sameSize)
+
+	//	You can use copy with arrays by taking a slice of the array. You can make the array
+	// either the source or the destination of the copy
+
+	slice16 := []int{1, 2, 3, 4}
+	arr5 := [4]int{5, 6, 7, 8}
+	slice17 := make([]int, 2)
+	copy(slice17, arr5[:])
+	fmt.Println(slice17)
+	copy(arr5[:], slice16)
+	fmt.Println(arr5)
 }
